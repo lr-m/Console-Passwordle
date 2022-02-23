@@ -47,6 +47,11 @@ bool submit_guess(string guess, string correct)
                   << "You did it in " << guess_count << " guesses!"
                   << "\033[0m\n\n";
         return true;
+    } else if (guess_count == correct.length()){
+        cout << "\n\x1B[31m"
+                  << "Unlucky!"
+                  << "\033[0m\n\n";
+        return true;
     }
     else
     {
@@ -109,9 +114,17 @@ int main()
         cout << "\e[A";
         if (guess.size() != size)
         {
-            cout << "INVALID ENTRY\t\t\n";
+            cout << "INVALID ENTRY";
+            for (int i = 0; i < 100; i++){
+                cout << ' ';
+            }
+            cout << "\n";
             continue;
         }
         correct = submit_guess(guess, word);
     } while (!correct || guess.length() != size);
+
+    cout << "\x1B[33m"
+                  << "The password was: " << word
+                  << "\033[0m\n\n";
 }
